@@ -1,5 +1,7 @@
 ﻿using MessageSender.State;
 using MessageSender.ViewModels.Controls;
+using System.Reflection;
+using System.Runtime.ConstrainedExecution;
 
 namespace MessageSender.ViewModels;
 
@@ -9,9 +11,15 @@ public partial class MainViewModel : ViewModelBase
 
     public SideBarViewModel SideBarViewModel { get; }
 
+    public string Title { get; }
+
     public MainViewModel(AppState appState, SideBarViewModel sideBarViewModel)
     {
         AppState = appState;
         SideBarViewModel = sideBarViewModel;
+
+        var version = Assembly.GetExecutingAssembly().GetName().Version;
+
+        Title = $"MessageSender - {version}";
     }
 }
