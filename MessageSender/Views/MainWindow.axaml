@@ -11,13 +11,13 @@
     xmlns:prism="http://prismlibrary.com/"
     xmlns:views="clr-namespace:MessageSender.Views"
     xmlns:vm="using:MessageSender.ViewModels"
-    Title="MessageSender"
+    Title="MessageSender v2.0.0"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:DataType="vm:MainViewModel"
     Background="{actipro:ThemeResource Container1BackgroundBrush}"
     BorderThickness="1"
-    Icon="/Assets/avalonia-logo.ico"
+    Icon="/Assets/appIcon.ico"
     SystemDecorations="Full"
     mc:Ignorable="d">
 

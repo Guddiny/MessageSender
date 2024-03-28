@@ -10,7 +10,14 @@
         <BuiltInComInteropSupport>false</BuiltInComInteropSupport>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
         <SuppressTrimAnalysisWarnings>true</SuppressTrimAnalysisWarnings>
+        <ApplicationIcon>Assets\appIcon.ico</ApplicationIcon>
     </PropertyGroup>
+    <ItemGroup>
+      <None Remove="Assets\appIcon.ico" />
+    </ItemGroup>
+    <ItemGroup>
+      <AvaloniaResource Include="Assets\appIcon.ico" />
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Avalonia.Desktop" Version="11.0.10" />
