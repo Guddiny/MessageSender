@@ -1,0 +1,31 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:MessageSender.Shared.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
+    <Design.PreviewWith>
+        <controls:ConnectionStatusIndicator />
+    </Design.PreviewWith>
+
+    <Style Selector="controls|ConnectionStatusIndicator">
+        <!--  Set Defaults  -->
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid RowDefinitions="Auto, 2">
+                    <Border
+                        Width="64"
+                        Height="25"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"
+                        Background="{TemplateBinding Background}">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{TemplateBinding Text}"></TextBlock>
+                    </Border>
+                    <Border
+                        Grid.Row="1"
+                        MinWidth="100"
+                        Background="{TemplateBinding Background}" />
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

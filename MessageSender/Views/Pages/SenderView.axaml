@@ -1,0 +1,237 @@
+<UserControl
+    x:Class="MessageSender.Views.Pages.SenderView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:actipro="http://schemas.actiprosoftware.com/avaloniaui"
+    xmlns:avaloniaEdit="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
+    xmlns:converters="using:MessageSender.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:intraction="using:MessageSender.Services.Interaction"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:MessageSender.Models;assembly=MessageSender"
+    xmlns:vm="clr-namespace:MessageSender.ViewModels.Pages;assembly=MessageSender"
+    d:DesignHeight="450"
+    d:DesignWidth="1000"
+    x:DataType="vm:SenderViewModel"
+    mc:Ignorable="d">
+
+    <UserControl.Styles>
+        <Style Selector="GridSplitter">
+            <Setter Property="Background" Value="{actipro:ThemeResource ButtonBackgroundBrushOutlinePressed}" />
+        </Style>
+        <Style Selector="TextBlock.SmallLabel">
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid ColumnDefinitions="*,1,*">
+        <Grid Grid.Column="0" RowDefinitions="Auto, 4*,1,2*">
+            <Border
+                Grid.Row="0"
+                Height="43"
+                Padding="5"
+                Background="{actipro:ThemeResource Container2BackgroundBrush}"
+                BorderBrush="{actipro:ThemeResource Container3BorderBrush}"
+                BorderThickness="0,0,0,1">
+                <Grid ColumnDefinitions="*, Auto">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <ComboBox
+                            MinWidth="200"
+                            Classes="theme-soft"
+                            IsEnabled="{Binding !AppState.AppData.IsDeviceConnected}"
+                            ItemsSource="{Binding AppState.AppData.Devices}"
+                            PlaceholderText="Device Id"
+                            SelectedIndex="{Binding AppState.AppData.SelectedDeviceIndex}"
+                            SelectedItem="{Binding AppState.AppData.SelectedDevice}"
+                            ToolTip.Tip="{Binding AppState.AppData.SelectedDevice.Description}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate DataType="{x:Type models:Device}">
+                                    <Grid ColumnDefinitions="Auto, Auto, Auto" ToolTip.Tip="{Binding Description}">
+                                        <TextBlock
+                                            Grid.Column="0"
+                                            MinWidth="130"
+                                            FontWeight="DemiBold"
+                                            Text="{Binding DeviceId}"
+                                            TextAlignment="Left" />
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            MinWidth="130"
+                                            Text="{Binding DeviceType}"
+                                            TextAlignment="Center" />
+                                        <TextBlock
+                                            Grid.Column="2"
+                                            Text="{Binding Environment}"
+                                            TextAlignment="Right" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <Button
+                            Name="ConnectBtn"
+                            Classes="theme"
+                            Command="{Binding ConnectCommand}"
+                            Content="{Binding ConnectButtonText}" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <Button
+                            Classes="theme-subtle accent"
+                            Command="{Binding SendMessageCommand}"
+                            IsVisible="{Binding AppState.AppData.IsDeviceConnected}"
+                            ToolTip.Tip="Send message">
+                            <PathIcon Data="{StaticResource SendRegular}" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <Border Grid.Row="1">
+                <Grid>
+                    <Border
+                        Height="32"
+                        Margin="0,0,15,10"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Background="{actipro:ThemeResource Container2BackgroundBrush}"
+                        BorderBrush="{actipro:ThemeResource Container2BorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="5"
+                        ZIndex="10">
+                        <StackPanel Orientation="Horizontal">
+                            <Button
+                                Width="32"
+                                Padding="0"
+                                Classes="theme-subtle"
+                                Command="{Binding BeautifyCommand}"
+                                ToolTip.Tip="Beautify">
+                                <TextBlock
+                                    Margin="0,0,0,5"
+                                    Padding="0"
+                                    FontSize="18"
+                                    FontWeight="SemiBold">
+                                    { }
+                                </TextBlock>
+                            </Button>
+                            <Button
+                                Width="32"
+                                Padding="0"
+                                Classes="theme-subtle"
+                                Command="{Binding SaveAsMessagesCommand}"
+                                ToolTip.Tip="Save in messages">
+                                <PathIcon Data="{StaticResource SaveAsRegular}" />
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                    <avaloniaEdit:TextEditor
+                        x:Name="MessageBodyEditor"
+                        Margin="0"
+                        Background="{actipro:ThemeResource Container1BackgroundBrush}"
+                        Document="{Binding AppState.AppData.MessageBody}"
+                        FontFamily="{StaticResource JetBrainsMono}" />
+                </Grid>
+            </Border>
+            <GridSplitter
+                Grid.Row="2"
+                MinHeight="3"
+                MaxHeight="3"
+                ResizeDirection="Rows" />
+            <Border Grid.Row="3">
+                <avaloniaEdit:TextEditor
+                    Name="MessageHeadersEditor"
+                    Background="{actipro:ThemeResource Container1BackgroundBrush}"
+                    Document="{Binding AppState.AppData.UserProperties}"
+                    FontFamily="{StaticResource JetBrainsMono}"
+                    ShowLineNumbers="True" />
+            </Border>
+        </Grid>
+
+        <GridSplitter
+            Grid.Column="1"
+            MinWidth="3"
+            MaxWidth="3" />
+
+        <Grid Grid.Column="2" RowDefinitions="Auto, *,1,*">
+            <Border
+                Grid.Row="0"
+                Height="43"
+                Padding="5"
+                Background="{actipro:ThemeResource Container2BackgroundBrush}"
+                BorderBrush="{actipro:ThemeResource Container3BorderBrush}"
+                BorderThickness="0,0,0,1">
+                <Grid ColumnDefinitions="*, Auto">
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <Button
+                            Command="{Binding ClearIncomingMessagesCommand}"
+                            Content="Clear"
+                            ToolTip.Tip="Clear message list" />
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal"
+                        Spacing="5">
+                        <TextBlock Text="QTY:" />
+                        <TextBlock Classes="theme-text-heading size-xs accent" Text="{Binding AppState.AppData.DeviceMessages.Count}" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <Border Grid.Row="1">
+                <ListBox
+                    BorderThickness="0"
+                    ItemsSource="{Binding AppState.AppData.DeviceMessages}"
+                    SelectedItem="{Binding SelectedMessage}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ReversibleStackPanel ReverseOrder="True" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="intraction:DeviceMessage">
+                            <Grid ColumnDefinitions="*, Auto">
+                                <StackPanel
+                                    Grid.Column="0"
+                                    Orientation="Horizontal"
+                                    Spacing="3">
+                                    <TextBlock
+                                        Width="33"
+                                        Classes="theme-text-heading size-xs"
+                                        Text="{Binding Direction, Converter={x:Static converters:MessageDirectionConverter.Instance}}" />
+                                    <Border
+                                        Padding="2,0"
+                                        BorderBrush="#ccced3"
+                                        BorderThickness="1"
+                                        CornerRadius="3">
+                                        <TextBlock Classes="theme-text-code size-sm" Text="{Binding Method}" />
+                                    </Border>
+                                    <Border
+                                        Padding="2,0"
+                                        Background="{Binding Source, Converter={x:Static converters:MessageSourceToColorConverter.Instance}}"
+                                        BorderBrush="#ccced3"
+                                        BorderThickness="1"
+                                        CornerRadius="3">
+                                        <TextBlock Classes="theme-text-code size-sm" Text="{Binding Source}" />
+                                    </Border>
+                                </StackPanel>
+                                <TextBlock
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Right"
+                                    Text="{Binding Timestamp, StringFormat={}{0:d MMM yyyy @ HH:mm:ssss.fff}}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Border>
+            <GridSplitter
+                Grid.Row="2"
+                MinHeight="3"
+                MaxHeight="3" />
+            <Border Grid.Row="3">
+                <avaloniaEdit:TextEditor
+                    Name="SelectedIncomingMessageEditor"
+                    Background="{actipro:ThemeResource Container1BackgroundBrush}"
+                    Document="{Binding IncomingMessage}"
+                    FontFamily="{StaticResource JetBrainsMono}"
+                    SearchResultsBrush="Red"
+                    ShowLineNumbers="True" />
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

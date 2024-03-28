@@ -1,0 +1,58 @@
+<Window
+    x:Class="MessageSender.Views.MainWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:actipro="http://schemas.actiprosoftware.com/avaloniaui"
+    xmlns:controls="using:MessageSender.Shared.Controls"
+    xmlns:core="using:MessageSender.Constants"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dialogHost="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:views="clr-namespace:MessageSender.Views"
+    xmlns:vm="using:MessageSender.ViewModels"
+    Title="MessageSender"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="vm:MainViewModel"
+    Background="{actipro:ThemeResource Container1BackgroundBrush}"
+    BorderThickness="1"
+    Icon="/Assets/avalonia-logo.ico"
+    SystemDecorations="Full"
+    mc:Ignorable="d">
+
+    <Grid RowDefinitions="*, 0">
+        <dialogHost:DialogHost
+            dialogHost:DialogHostStyle.CornerRadius="5"
+            Background="{actipro:ThemeResource Container2BackgroundBrush}"
+            CloseOnClickAway="True"
+            DisableOpeningAnimation="True"
+            Identifier="TopDialog">
+            <dialogHost:DialogHost.DialogContent />
+            <views:MainView />
+        </dialogHost:DialogHost>
+
+        <!--<controls:ConnectionStatusIndicator
+            IsVisible="{Binding !AppState.AppData.IsDeviceConnected}"
+            Grid.Row="0"
+            Text="Offline"
+            Background="Coral"
+            VerticalAlignment="Bottom"
+            ZIndex="2" />
+        -->
+        <!--<actipro:ToggleThemeButton
+            Margin="14,0,0,5"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            BorderThickness="0"
+            ZIndex="0" />-->
+
+        <controls:ConnectionStatusIndicator
+            Grid.Row="0"
+            VerticalAlignment="Bottom"
+            Background="LightGreen"
+            IsVisible="{Binding AppState.AppData.IsDeviceConnected}"
+            Text="Online"
+            ZIndex="2" />
+    </Grid>
+</Window>

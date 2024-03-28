@@ -1,0 +1,61 @@
+<UserControl
+    x:Class="MessageSender.Views.Dialogs.AddEditMessageView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:MessageSender.ViewModels.Dialogs"
+    Width="350"
+    Height="200"
+    x:DataType="vm:AddEditMessageViewModel"
+    mc:Ignorable="d">
+    <Border>
+        <Grid RowDefinitions="Auto, *, Auto">
+            <Border Grid.Row="0">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Classes="theme-text-heading size-xs"
+                    Text="{Binding Text}">
+                    Actipro typography sample text
+                </TextBlock>
+            </Border>
+
+            <Border Grid.Row="1">
+                <StackPanel
+                    Margin="0,15,0,0"
+                    Orientation="Vertical"
+                    Spacing="11">
+                    <AutoCompleteBox
+                        Classes="has-clear-button"
+                        ItemsSource="{Binding DeviceTypeAutocomplete}"
+                        Text="{Binding DeviceType}"
+                        Watermark="Device Type" />
+                    <AutoCompleteBox
+                        Classes="has-clear-button"
+                        IsTextCompletionEnabled="True"
+                        ItemsSource="{Binding MessageNameAutocomplete}"
+                        Text="{Binding MessageName}"
+                        Watermark="Message Name" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="2">
+                <StackPanel
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal"
+                    Spacing="5">
+                    <Button
+                        Width="100"
+                        Classes="theme-solid accent"
+                        Command="{Binding OkCommand}"
+                        Content="OK" />
+                    <Button
+                        Width="120"
+                        Classes="theme-soft"
+                        Command="{Binding CancelCommand}"
+                        Content="Cancel" />
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,0 +1,137 @@
+<UserControl
+    x:Class="MessageSender.Views.Pages.DeviceManagementView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:actipro="http://schemas.actiprosoftware.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:m="using:MessageSender.Models"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:t="using:MessageSender.Shared.Controls"
+    xmlns:vm="using:MessageSender.ViewModels.Pages"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="vm:DeviceManagementViewModel"
+    mc:Ignorable="d">
+
+    <UserControl.Styles>
+        <Style Selector="DataGrid:focus DataGridCell:current /template/ Grid#FocusVisual">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+    </UserControl.Styles>
+
+
+    <Border Padding="0">
+        <Grid ColumnDefinitions="*,1, Auto">
+            <Grid Grid.Column="0" RowDefinitions="Auto, *">
+                <Grid Margin="5,5,5,0" ColumnDefinitions="*, Auto">
+                    <StackPanel
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal"
+                        Spacing="3">
+                        <Button
+                            Grid.Row="0"
+                            Classes="theme-soft accent"
+                            Command="{Binding AddNewDeviceDialogCommand}">
+                            Add device
+                        </Button>
+                        <Button
+                            Classes="theme-soft warning"
+                            Command="{Binding EditDeviceCommand}"
+                            IsEnabled="{Binding CanEditOrDelete}">
+                            Edit
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <Button
+                            Classes="theme-soft danger"
+                            Command="{Binding DeleteDeviceCommand}"
+                            IsEnabled="{Binding CanEditOrDelete}">
+                            Delete
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
+
+                <!--<TreeView
+                    Grid.Row="1"
+                    AutoScrollToSelectedItem="True"
+                    BorderThickness="0"
+                    ItemsSource="{Binding Workspace.DeviceTypes}"
+                    SelectedItem="{Binding SelectedDevice}"
+                    SelectionMode="Single">
+                    <TreeView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Delete" />
+                        </ContextMenu>
+                    </TreeView.ContextMenu>
+                    <TreeView.ItemContainerTheme>
+                        <ControlTheme BasedOn="{StaticResource {x:Type TreeViewItem}}" TargetType="TreeViewItem">
+                            <Setter Property="IsExpanded" Value="True" />
+                        </ControlTheme>
+                    </TreeView.ItemContainerTheme>
+                    <TreeView.DataTemplates>
+                        <TreeDataTemplate DataType="m:DeviceType" ItemsSource="{Binding Environments}">
+                            <TextBlock Foreground="Blue" Text="{Binding Name}" />
+                        </TreeDataTemplate>
+                        <TreeDataTemplate DataType="m:DeviceEnvironment" ItemsSource="{Binding Devices}">
+                            <TextBlock Foreground="Red" Text="{Binding Name}" />
+                        </TreeDataTemplate>
+                        <DataTemplate DataType="m:Device">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <TextBlock Text="{Binding DeviceId}" />
+                            </Grid>
+                        </DataTemplate>
+                    </TreeView.DataTemplates>
+                </TreeView>-->
+                <DataGrid
+                    Grid.Row="1"
+                    Margin="0,5,0,0"
+                    AutoGenerateColumns="False"
+                    BorderBrush="LightGray"
+                    BorderThickness="0,1,0,0"
+                    CanUserReorderColumns="True"
+                    CanUserSortColumns="True"
+                    GridLinesVisibility="None"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding DevicesDataGrid}"
+                    SelectedItem="{Binding SelectedDevice}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            x:DataType="m:Device"
+                            Binding="{Binding DeviceId}"
+                            Header="Device ID" />
+                        <DataGridTextColumn
+                            x:DataType="m:Device"
+                            Binding="{Binding DeviceType}"
+                            Header="Device Type" />
+                        <DataGridTextColumn
+                            x:DataType="m:Device"
+                            Binding="{Binding Environment}"
+                            Header="Environment" />
+                        <DataGridTextColumn
+                            x:DataType="m:Device"
+                            Binding="{Binding Key}"
+                            Header="Key" />
+                        <DataGridTextColumn
+                            x:DataType="m:Device"
+                            Binding="{Binding ServerHost}"
+                            Header="Host" />
+                        <DataGridTextColumn
+                            Width="*"
+                            x:DataType="m:Device"
+                            Binding="{Binding Description}"
+                            Header="Description" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+            <GridSplitter Grid.Column="1" />
+            <Border
+                Grid.Column="2"
+                Padding="0,0,0,0"
+                Background="{actipro:ThemeResource Container2BackgroundBrush}"
+                BorderBrush="{actipro:ThemeResource Container2BorderBrush}"
+                BorderThickness="0" />
+        </Grid>
+    </Border>
+</UserControl>

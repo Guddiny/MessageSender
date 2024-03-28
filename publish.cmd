@@ -1,0 +1,4 @@
+#dotnet publish .\MessageSender.Desktop\MessageSender.Desktop.csproj -c Release -r win-x64 -p:PublishAot=true -p:PublishTrimmed=true -p:TrimMode=link --self-contained
+dotnet publish .\MessageSender.Desktop\MessageSender.Desktop.csproj -c Release -r win-x64 --self-contained -p:PublishSingleFile=true -p:DebugType=None -p:DebugSymbols=false -p:IncludeAllContentForSelfExtract=true -p:EnableCompressionInSingleFile=true
+
+#dotnet publish .\MessageSender.Desktop.csproj -c Release -r win-x64 -p:PublishSingleFile=true --self-contained=true -p:DebugType=None -p:DebugSymbols=false -p:IncludeAllContentForSelfExtract=true -p:EnableCompressionInSingleFile=true

@@ -1,0 +1,45 @@
+<UserControl
+    x:Class="MessageSender.Views.MainView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:actipro="http://schemas.actiprosoftware.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:MessageSender.Views.Pages"
+    xmlns:pagesVm="clr-namespace:MessageSender.ViewModels.Pages"
+    xmlns:vm="clr-namespace:MessageSender.ViewModels"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="vm:MainViewModel"
+    mc:Ignorable="d">
+    <Border BorderBrush="{actipro:ThemeResource Container3BorderBrush}" BorderThickness="0,1,0,0">
+        <Grid>
+            <SplitView
+                CompactPaneLength="65"
+                DisplayMode="CompactInline"
+                IsPaneOpen="False"
+                OpenPaneLength="300">
+                <SplitView.Pane>
+                    <ContentControl
+                        Grid.Column="0"
+                        Background="LightBlue"
+                        Content="{Binding SideBarViewModel}" />
+                </SplitView.Pane>
+                <SplitView.Content>
+                    <Border>
+                        <TransitioningContentControl Background="{actipro:ThemeResource Container1BackgroundBrush}" Content="{Binding SideBarViewModel.Page}" />
+                    </Border>
+                </SplitView.Content>
+            </SplitView>
+            <ProgressBar
+                Height="5"
+                MinHeight="5"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom"
+                Classes="accent"
+                IsIndeterminate="True"
+                IsVisible="{Binding AppState.AppData.IsProgressVisible}" />
+        </Grid>
+    </Border>
+</UserControl>
