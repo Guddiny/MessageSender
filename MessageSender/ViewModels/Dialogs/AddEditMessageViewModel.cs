@@ -29,8 +29,8 @@ namespace MessageSender.ViewModels.Dialogs
         public AddEditMessageViewModel(AppState appState)
         {
             AppState = appState;
-            DeviceTypeAutocomplete = AppState.AppData.Messages.Select(m => m.DeviceType).ToArray();
-            MessageNameAutocomplete = AppState.AppData.Messages.Select(m => m.Name).ToArray();
+            DeviceTypeAutocomplete = AppState.AppData.Messages.Select(m => m.DeviceType).Distinct().ToArray();
+            MessageNameAutocomplete = AppState.AppData.Messages.Select(m => m.Name).Distinct().ToArray();
         }
 
         public AppState AppState { get; set; }

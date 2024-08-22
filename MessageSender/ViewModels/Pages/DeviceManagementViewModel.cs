@@ -1,4 +1,5 @@
 ﻿using Avalonia.Collections;
+using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DialogHostAvalonia;
@@ -6,6 +7,7 @@ using MessageSender.Models;
 using MessageSender.State;
 using MessageSender.Utils.ActionWrapper;
 using MessageSender.ViewModels.Dialogs;
+using System;
 using System.Threading.Tasks;
 
 namespace MessageSender.ViewModels.Pages;
@@ -85,6 +87,31 @@ public partial class DeviceManagementViewModel : ViewModelBase
             .WithConfirmationDialog(new DialogOptions() { Message = $"Do you want to remove the device {SelectedDevice?.DeviceId}" })
             .Run();
     }
+
+    [RelayCommand]
+    private async Task CopyDeviceId()
+    {
+        if (Avalonia.Application.Current?.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop ||
+           desktop.MainWindow?.Clipboard is not { } provider)
+        {
+            throw new NullReferenceException("Missing Clipboard instance.");
+        }
+
+        await provider.SetTextAsync(SelectedDevice?.DeviceId);
+    }
+
+    [RelayCommand]
+    private async Task CopyKey()
+    {
+        if (Avalonia.Application.Current?.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop ||
+           desktop.MainWindow?.Clipboard is not { } provider)
+        {
+            throw new NullReferenceException("Missing Clipboard instance.");
+        }
+
+        await provider.SetTextAsync(SelectedDevice?.Key);
+    }
+
 
     partial void OnSelectedDeviceChanged(Device? oldValue, Device? newValue)
     {

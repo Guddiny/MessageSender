@@ -53,9 +53,9 @@ namespace MessageSender.ViewModels.Dialogs
 
         private void SetAutocompletes()
         {
-            DeviceTypeAutocomplete = AppState!.AppData.Devices.Select(d => d.DeviceType).ToArray();
-            EnvironmentAutocomplete = AppState!.AppData.Devices.Select(d => d.Environment).ToArray();
-            ServerHostAutocomplete = AppState!.AppData.Devices.Select(d => d.ServerHost).ToArray();
+            DeviceTypeAutocomplete = AppState!.AppData.Devices.Select(d => d.DeviceType).Distinct().ToArray();
+            EnvironmentAutocomplete = AppState!.AppData.Devices.Select(d => d.Environment).Distinct().ToArray();
+            ServerHostAutocomplete = AppState!.AppData.Devices.Select(d => d.ServerHost).Distinct().ToArray();
         }
 
         public string[] DeviceTypeAutocomplete { get; set; } = [];

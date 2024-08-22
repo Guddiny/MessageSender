@@ -96,6 +96,12 @@
                     IsReadOnly="True"
                     ItemsSource="{Binding DevicesDataGrid}"
                     SelectedItem="{Binding SelectedDevice}">
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Command="{Binding CopyDeviceIdCommand}" Header="Copy Device ID" />
+                            <MenuItem Command="{Binding CopyKeyCommand}" Header="Copy Key" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             x:DataType="m:Device"
