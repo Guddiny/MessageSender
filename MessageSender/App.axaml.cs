@@ -73,6 +73,7 @@ public partial class App : Application
         _mainViewModel.AppState.AppData.SelectedDeviceIndex = _savedSettings.CurrentDeviceIndex;
         _mainViewModel.AppState.AppData.Devices = new ObservableCollection<Device>(_savedSettings.Devices);
         _mainViewModel.AppState.AppData.Messages = new ObservableCollection<StoredMessage>(_savedSettings.Messages);
+        _mainViewModel.AppState.Settings.ThemeVariant = _savedSettings.ThemeVariant;
     }
 
     private void LoadSettingsAndConfigs()
@@ -126,6 +127,7 @@ public partial class App : Application
             CurrentDeviceIndex = _mainViewModel.AppState.AppData.SelectedDeviceIndex,
             Devices = _mainViewModel.AppState.AppData.Devices.ToList(),
             Messages = _mainViewModel.AppState.AppData.Messages.ToList(),
+            ThemeVariant = _mainViewModel.AppState.Settings.ThemeVariant,
         };
 
         AppSettingsService.SaveAppState(applicationSettings);

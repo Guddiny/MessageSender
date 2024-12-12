@@ -16,4 +16,6 @@ public class ApplicationSettings
     public List<StoredMessage> Messages { get; set; } = [];
 
     public int? CurrentDeviceIndex { get; set; }
+
+    public string ThemeVariant { get; set; } = "Light";
 }

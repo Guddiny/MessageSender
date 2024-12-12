@@ -1,7 +1,7 @@
-﻿using MessageSender.State;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using MessageSender.State;
 using MessageSender.ViewModels.Controls;
 using System.Reflection;
-using System.Runtime.ConstrainedExecution;
 
 namespace MessageSender.ViewModels;
 

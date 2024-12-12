@@ -21,6 +21,9 @@ public partial class MessageManagementViewModel : ViewModelBase
     private readonly ActionDispatcher _dispatcher;
 
     [ObservableProperty]
+    private bool _canEditMessage = false;
+
+    [ObservableProperty]
     private StoredMessage _selectedMessage;
 
     [ObservableProperty]
@@ -123,10 +126,12 @@ public partial class MessageManagementViewModel : ViewModelBase
     {
         if (value == null)
         {
+            CanEditMessage = false;
             CanDelete = false;
             return;
         }
 
+        CanEditMessage = true;
         CanDelete = true;
         SelectedMessageBody = new TextDocument(value.MessageBody);
         SelectedMessageUserProperties = new TextDocument(value.UserProperties);

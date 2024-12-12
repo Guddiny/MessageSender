@@ -97,7 +97,8 @@
                         Margin="0"
                         Background="{actipro:ThemeResource Container1BackgroundBrush}"
                         Document="{Binding SelectedMessage.MessageBody}"
-                        FontFamily="{StaticResource JetBrainsMono}" />
+                        FontFamily="{StaticResource JetBrainsMono}"
+                        IsEnabled="{Binding CanEditMessage}" />
                     <GridSplitter
                         Grid.Row="1"
                         BorderBrush="LightGray"
@@ -108,7 +109,8 @@
                         Margin="0"
                         Background="{actipro:ThemeResource Container1BackgroundBrush}"
                         Document="{Binding SelectedMessage.UserProperties}"
-                        FontFamily="{StaticResource JetBrainsMono}" />
+                        FontFamily="{StaticResource JetBrainsMono}"
+                        IsEnabled="{Binding CanEditMessage}" />
                 </Grid>
             </Border>
         </Grid>

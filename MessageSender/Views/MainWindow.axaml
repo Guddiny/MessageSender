@@ -21,38 +21,41 @@
     SystemDecorations="Full"
     mc:Ignorable="d">
 
-    <Grid RowDefinitions="*, 0">
-        <dialogHost:DialogHost
-            dialogHost:DialogHostStyle.CornerRadius="5"
-            Background="{actipro:ThemeResource Container2BackgroundBrush}"
-            CloseOnClickAway="True"
-            DisableOpeningAnimation="True"
-            Identifier="TopDialog">
-            <dialogHost:DialogHost.DialogContent />
-            <views:MainView />
-        </dialogHost:DialogHost>
+    <ThemeVariantScope RequestedThemeVariant="{Binding AppState.Settings.ThemeVariant, Mode=TwoWay}">
 
-        <!--<controls:ConnectionStatusIndicator
+        <Grid RowDefinitions="*, 0">
+            <dialogHost:DialogHost
+                dialogHost:DialogHostStyle.CornerRadius="5"
+                Background="{actipro:ThemeResource Container2BackgroundBrush}"
+                CloseOnClickAway="True"
+                DisableOpeningAnimation="True"
+                Identifier="TopDialog">
+                <dialogHost:DialogHost.DialogContent />
+                <views:MainView />
+            </dialogHost:DialogHost>
+
+            <!--<controls:ConnectionStatusIndicator
             IsVisible="{Binding !AppState.AppData.IsDeviceConnected}"
             Grid.Row="0"
             Text="Offline"
             Background="Coral"
             VerticalAlignment="Bottom"
             ZIndex="2" />
-        -->
-        <!--<actipro:ToggleThemeButton
+            -->
+            <!--<actipro:ToggleThemeButton
             Margin="14,0,0,5"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom"
             BorderThickness="0"
             ZIndex="0" />-->
 
-        <controls:ConnectionStatusIndicator
-            Grid.Row="0"
-            VerticalAlignment="Bottom"
-            Background="LightGreen"
-            IsVisible="{Binding AppState.AppData.IsDeviceConnected}"
-            Text="Online"
-            ZIndex="2" />
-    </Grid>
+            <controls:ConnectionStatusIndicator
+                Grid.Row="0"
+                VerticalAlignment="Bottom"
+                Background="LightGreen"
+                IsVisible="{Binding AppState.AppData.IsDeviceConnected}"
+                Text="Online"
+                ZIndex="2" />
+        </Grid>
+    </ThemeVariantScope>
 </Window>

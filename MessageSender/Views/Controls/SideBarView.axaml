@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:MessageSender.ViewModels.Controls"
     d:DesignHeight="450"
-    d:DesignWidth="800"
+    d:DesignWidth="70"
     x:DataType="vm:SideBarViewModel"
     mc:Ignorable="d">
 
@@ -43,6 +43,12 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+
+        <actipro:ToggleThemeButton
+            Margin="0,0,0,10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            ZIndex="1" />
     </Grid>
 
 </UserControl>
