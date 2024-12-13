@@ -2,6 +2,7 @@ using ActiproSoftware.UI.Avalonia.Themes;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
+using Avalonia.Styling;
 using AvaloniaEdit.Indentation.CSharp;
 using AvaloniaEdit.TextMate;
 using TextMateSharp.Grammars;
@@ -13,15 +14,28 @@ public partial class SenderView : UserControl
     {
         InitializeComponent();
         Application.Current!.ActualThemeVariantChanged += Current_ActualThemeVariantChanged;
-        
-        InitiateEditors(ThemeName.LightPlus);
+        InitiateEditors(GetThemeVariant(Application.Current.ActualThemeVariant));
     }
 
     private void InitiateEditors(ThemeName themeName)
     {
-        Color textSelectionColor = Color.Parse("#ADD6FF");
-        Color textSearchSectionColor = Color.Parse("#F8C9AB");
-        Color searchPanelColor = Color.Parse("#F8F8F9");
+        Color textSelectionColor;
+        Color textSearchSectionColor;
+        Color searchPanelColor;
+
+        if (themeName == ThemeName.DarkPlus)
+        {
+            textSelectionColor = Color.Parse("#23405a");
+            textSearchSectionColor = Color.Parse("#952354");
+            searchPanelColor = Color.Parse("#F8F8F9");
+        }
+        else
+        {
+            textSelectionColor = Color.Parse("#ADD6FF");
+            textSearchSectionColor = Color.Parse("#F8C9AB");
+            searchPanelColor = Color.Parse("#F8F8F9");
+        }
+
         var registryOptions = new RegistryOptions(themeName);
         Language jsonSyntax = registryOptions.GetLanguageByExtension(".json");
 
@@ -70,8 +84,15 @@ public partial class SenderView : UserControl
 
     private void Current_ActualThemeVariantChanged(object? sender, System.EventArgs e)
     {
-        InitiateEditors(Application.Current!.ActualThemeVariant.IsDark() 
-            ? ThemeName.SolarizedDark 
+        InitiateEditors(Application.Current!.ActualThemeVariant.IsDark()
+            ? ThemeName.DarkPlus
             : ThemeName.LightPlus);
+    }
+
+    private ThemeName GetThemeVariant(ThemeVariant themeVariant)
+    {
+        return themeVariant.IsDark()
+            ? ThemeName.DarkPlus
+            : ThemeName.LightPlus;
     }
 }

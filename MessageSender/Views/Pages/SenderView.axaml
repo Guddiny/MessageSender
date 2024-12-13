@@ -147,7 +147,6 @@
             Grid.Column="1"
             MinWidth="3"
             MaxWidth="3" />
-
         <Grid Grid.Column="2" RowDefinitions="Auto, *,1,*">
             <Border
                 Grid.Row="0"

@@ -2,6 +2,7 @@
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using Avalonia.Styling;
 using AvaloniaEdit.Document;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using MessageSender.Models;
@@ -20,6 +21,7 @@ using MessageSender.Views.Dialogs;
 using MessageSender.Views.Pages;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -74,6 +76,24 @@ public partial class App : Application
         _mainViewModel.AppState.AppData.Devices = new ObservableCollection<Device>(_savedSettings.Devices);
         _mainViewModel.AppState.AppData.Messages = new ObservableCollection<StoredMessage>(_savedSettings.Messages);
         _mainViewModel.AppState.Settings.ThemeVariant = _savedSettings.ThemeVariant;
+        RequestedThemeVariant = GetThemeVariant(_savedSettings.ThemeVariant);
+
+        ActualThemeVariantChanged += App_ActualThemeVariantChanged;
+    }
+
+    private ThemeVariant GetThemeVariant(string storedVariant)
+    {
+        return storedVariant switch
+        {
+            "Dark" => ThemeVariant.Dark,
+            "Light" => ThemeVariant.Light,
+            _ => throw new ArgumentOutOfRangeException(nameof(storedVariant)),
+        };
+    }
+
+    private void App_ActualThemeVariantChanged(object? sender, System.EventArgs e)
+    {
+        _mainViewModel.AppState.Settings.ThemeVariant = (sender as Application).ActualThemeVariant.ToString();
     }
 
     private void LoadSettingsAndConfigs()
