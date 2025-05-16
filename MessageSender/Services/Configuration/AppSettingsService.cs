@@ -13,9 +13,10 @@ public static class AppSettingsService
         WriteIndented = true,
         Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
         ReferenceHandler = ReferenceHandler.Preserve,
+        MaxDepth = 1000,
     };
 
-public static void SaveAppState(ApplicationSettings applicationSettings, string filePath = StateFileName)
+    public static void SaveAppState(ApplicationSettings applicationSettings, string filePath = StateFileName)
     {
         string lines = JsonSerializer.Serialize(applicationSettings, typeof(ApplicationSettings), _jsonSerializerOptions);
 
