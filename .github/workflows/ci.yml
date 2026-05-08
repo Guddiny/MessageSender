@@ -33,7 +33,7 @@ jobs:
       - name: Build
         run: dotnet build -c Release
       - name: Publish
-        run: dotnet publish MessageSender.Desktop/MessageSender.Desktop.csproj -c Release -r ${{ matrix.platform }} --self-contained -p:PublishSingleFile=true -p:DebugType=None -p:DebugSymbols=false -p:IncludeAllContentForSelfExtract=true -p:EnableCompressionInSingleFile=true -p:Version=${{github.ref_name}}
+        run: dotnet publish MessageSender.Desktop/MessageSender.Desktop.csproj -c Release -r ${{ matrix.platform }} --self-contained -p:PublishSingleFile=true -p:DebugType=None -p:DebugSymbols=false -p:IncludeAllContentForSelfExtract=true -p:EnableCompressionInSingleFile=true -p:Version=1.2.3
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v7
