@@ -9,5 +9,5 @@ public partial class Settings : ObservableObject
     private string _themeVariant = "Light";
 
     [ObservableProperty]
-    private ThemeVariant _variant;
+    private ThemeVariant _variant = default!;
 }

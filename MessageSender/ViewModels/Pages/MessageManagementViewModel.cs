@@ -24,7 +24,7 @@ public partial class MessageManagementViewModel : ViewModelBase
     private bool _canEditMessage = false;
 
     [ObservableProperty]
-    private StoredMessage _selectedMessage;
+    private StoredMessage? _selectedMessage;
 
     [ObservableProperty]
     private TextDocument _selectedMessageBody = new("{}");
@@ -52,7 +52,7 @@ public partial class MessageManagementViewModel : ViewModelBase
 
     public AppState AppState { get; set; }
 
-    public DataGridCollectionView MessagesDataGrid { get; set; }
+    public DataGridCollectionView? MessagesDataGrid { get; set; }
 
     private void FillDataGreed()
     {
@@ -66,8 +66,11 @@ public partial class MessageManagementViewModel : ViewModelBase
         await _dispatcher
             .Action(() =>
             {
-                var msg = AppState.AppData.Messages.FirstOrDefault(m => m.Id == SelectedMessage.Id);
-                AppState.AppData.Messages.Remove(msg);
+                var msg = AppState.AppData.Messages.FirstOrDefault(m => m.Id == SelectedMessage?.Id);
+                if (msg != null) 
+                {
+                    AppState.AppData.Messages.Remove(msg);
+                }
 
                 return Task.CompletedTask;
             })
@@ -92,10 +95,10 @@ public partial class MessageManagementViewModel : ViewModelBase
         await _dispatcher
             .Action(() =>
             {
-                SelectedMessage.MessageBody =
-                    new TextDocument(JsonNode.Parse(SelectedMessage.MessageBody.Text)!.ToJsonString(_serializerOptions));
-                SelectedMessage.UserProperties =
-                    new TextDocument(JsonNode.Parse(SelectedMessage.UserProperties.Text)!.ToJsonString(_serializerOptions));
+                SelectedMessage?.MessageBody =
+                    new TextDocument(JsonNode.Parse(SelectedMessage.MessageBody.Text)?.ToJsonString(_serializerOptions));
+                SelectedMessage?.UserProperties =
+                    new TextDocument(JsonNode.Parse(SelectedMessage.UserProperties.Text)?.ToJsonString(_serializerOptions));
 
                 return Task.CompletedTask;
             })
@@ -109,9 +112,9 @@ public partial class MessageManagementViewModel : ViewModelBase
             .Action(() =>
             {
                 var body =
-                    new TextDocument(JsonNode.Parse(SelectedMessage.MessageBody.Text)!.ToJsonString(_serializerOptions));
+                    new TextDocument(JsonNode.Parse(SelectedMessage!.MessageBody.Text)?.ToJsonString(_serializerOptions));
                 var userProperties =
-                     new TextDocument(JsonNode.Parse(SelectedMessage.UserProperties.Text)!.ToJsonString(_serializerOptions));
+                     new TextDocument(JsonNode.Parse(SelectedMessage!.UserProperties.Text)?.ToJsonString(_serializerOptions));
 
                 AppState.AppData.MessageBody = body;
                 AppState.AppData.UserProperties = userProperties;
@@ -122,7 +125,7 @@ public partial class MessageManagementViewModel : ViewModelBase
             .Run();
     }
 
-    partial void OnSelectedMessageChanged(StoredMessage value)
+    partial void OnSelectedMessageChanged(StoredMessage? value)
     {
         if (value == null)
         {
@@ -133,7 +136,7 @@ public partial class MessageManagementViewModel : ViewModelBase
 
         CanEditMessage = true;
         CanDelete = true;
-        SelectedMessageBody = new TextDocument(value.MessageBody);
-        SelectedMessageUserProperties = new TextDocument(value.UserProperties);
+        SelectedMessageBody = new TextDocument(value?.MessageBody);
+        SelectedMessageUserProperties = new TextDocument(value?.UserProperties);
     }
 }

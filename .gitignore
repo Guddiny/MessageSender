@@ -452,3 +452,4 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+/MessageSender.Desktop/_appState.json

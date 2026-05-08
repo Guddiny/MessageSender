@@ -29,13 +29,15 @@
                         Classes="has-clear-button"
                         ItemsSource="{Binding DeviceTypeAutocomplete}"
                         Text="{Binding DeviceType}"
-                        Watermark="Device Type" />
+                        PlaceholderText="Device Type" 
+                        PlaceholderForeground="Gray"/>
                     <AutoCompleteBox
                         Classes="has-clear-button"
                         IsTextCompletionEnabled="True"
                         ItemsSource="{Binding MessageNameAutocomplete}"
                         Text="{Binding MessageName}"
-                        Watermark="Message Name" />
+                        PlaceholderText="Message Name" 
+                        PlaceholderForeground="Gray"/>
                 </StackPanel>
             </Border>
 
