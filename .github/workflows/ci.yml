@@ -14,10 +14,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: windows-latest
-            platform: win-x64
-          - os: macos-latest
-            platform: osx-x64
           - os: macos-latest
             platform: osx-arm64
     runs-on: ${{ matrix.os }}
@@ -55,4 +51,4 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: '2.0.9'
           VERSION: 1.2.3
-        run: gh release create "$TAG" -t "$VERSION" --notes-from-tag
+        run: git fetch --tags && gh release create "$TAG" -t "$VERSION" --notes-from-tag
