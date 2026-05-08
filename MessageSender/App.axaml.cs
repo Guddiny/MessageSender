@@ -89,7 +89,7 @@ public partial class App : Application
 
     private void App_ActualThemeVariantChanged(object? sender, System.EventArgs e)
     {
-        _mainViewModel.AppState.Settings.ThemeVariant = (sender as Application).ActualThemeVariant.ToString();
+        _mainViewModel.AppState.Settings.ThemeVariant = (sender as Application)!.ActualThemeVariant.ToString();
     }
 
     private void LoadSettingsAndConfigs()

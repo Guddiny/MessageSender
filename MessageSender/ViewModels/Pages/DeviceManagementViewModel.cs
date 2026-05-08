@@ -31,7 +31,7 @@ public partial class DeviceManagementViewModel : ViewModelBase
     [ObservableProperty]
     private bool _canEditOrDelete;
 
-    public DataGridCollectionView DevicesDataGrid { get; set; }
+    public DataGridCollectionView? DevicesDataGrid { get; set; }
 
     public AppState AppState { get; set; }
 
@@ -60,6 +60,11 @@ public partial class DeviceManagementViewModel : ViewModelBase
         await _dispatcher
           .Action(async () =>
           {
+              if (SelectedDevice == null)
+              {
+                  return;
+              }
+
               var result = await DialogHost.Show(new AddEditDeviceDialogViewModel(AppState)
               {
                   Text = "Edit Device",
@@ -81,7 +86,12 @@ public partial class DeviceManagementViewModel : ViewModelBase
         await _dispatcher
             .Action(() =>
             {
-                AppState.AppData.Devices.Remove(_selectedDevice);
+                if (SelectedDevice == null)
+                {
+                    return Task.CompletedTask;
+                }
+
+                AppState.AppData.Devices.Remove(SelectedDevice);
 
                 return Task.CompletedTask;
             })

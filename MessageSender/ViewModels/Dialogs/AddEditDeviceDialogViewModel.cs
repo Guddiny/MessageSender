@@ -40,7 +40,7 @@ namespace MessageSender.ViewModels.Dialogs
         private string _description = string.Empty;
 
         [ObservableProperty]
-        private string _text;
+        private string _text = string.Empty;
 
         public AppState AppState { get; set; }
 

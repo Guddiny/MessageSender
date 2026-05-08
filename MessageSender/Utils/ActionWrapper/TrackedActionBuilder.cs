@@ -7,8 +7,8 @@ namespace MessageSender.Utils.ActionWrapper
     public class TrackedActionBuilder
     {
         private readonly AppState _appState;
-        private Func<Task> _func;
-        private ITrackedAction _trackedAction;
+        private Func<Task> _func = default!;
+        private ITrackedAction _trackedAction = default!;
 
         public TrackedActionBuilder(AppState appState)
         {
