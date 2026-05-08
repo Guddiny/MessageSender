@@ -18,7 +18,7 @@
     Background="{actipro:ThemeResource Container1BackgroundBrush}"
     BorderThickness="1"
     Icon="/Assets/appIcon.ico"
-    SystemDecorations="Full"
+    WindowDecorations="Full"
     mc:Ignorable="d">
 
     <Grid RowDefinitions="*, 0">
@@ -31,7 +31,7 @@
             DisableOpeningAnimation="True"
             Identifier="TopDialog"
             OverlayBackground="{actipro:ThemeResource ButtonBackgroundBrushSolidPressed}">
-            <dialogHost:DialogHost.DialogContent />
+            <dialogHost:DialogHost.DialogContent/>
             <views:MainView />
         </dialogHost:DialogHost>
 

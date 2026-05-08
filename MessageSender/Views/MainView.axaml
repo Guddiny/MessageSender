@@ -17,9 +17,9 @@
         <Grid>
             <SplitView
                 CompactPaneLength="65"
-                DisplayMode="CompactInline"
-                IsPaneOpen="False"
-                OpenPaneLength="300">
+                DisplayMode="Inline"
+                IsPaneOpen="True"
+                OpenPaneLength="65">
                 <SplitView.Pane>
                     <ContentControl
                         Grid.Column="0"
